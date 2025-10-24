@@ -4,6 +4,7 @@
 #include <algorithm>     // for sort()
 #include <unordered_map> // for memoization (fast lookups)
 #include <utility>       // for std::pair and std::make_pair
+#include <string>
 using namespace std;
 
 /*
@@ -36,9 +37,9 @@ struct Node {
    Prints the current number of objects left in each pile.
 */
 void print_board(const vector<int>& piles) {
-    cout << "\nCurrent piles:\n";
+    cout << "\nCurrent piles:\n" << flush;
     for (size_t i = 0; i < piles.size(); ++i) {
-        cout << "Pile " << i + 1 << ": " << piles[i] << "\n";
+        cout << "Pile " << i + 1 << ": " << piles[i] << "\n" << flush;
     }
 }
 
@@ -194,16 +195,16 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    cout << "Welcome to the Nim Game!\n";
-    cout << "Enter number of piles: ";
+    cout << "Welcome to the Nim Game!\n" << flush << endl;
+    cout << "Enter number of piles: " << flush;
     int n;
     cin >> n;
 
     vector<int> piles(n);
-    cout << "Enter pile sizes:\n";
+    cout << "Enter pile sizes:\n" << flush;
     for (int i = 0; i < n; ++i) cin >> piles[i];
 
-    cout << "Who goes first? (1 = You, 2 = AI): ";
+    cout << "Who goes first? (1 = You, 2 = AI): " << flush;
     int turn;
     cin >> turn;
 
@@ -214,18 +215,18 @@ int main() {
         // Check for winning condition
         if (is_terminal(piles)) {
             cout << "\nGame over. Winner is "
-                 << (turn == 1 ? "AI" : "You") << "!\n";
+                 << (turn == 1 ? "AI" : "You") << "!\n" << flush;
             break;
         }
 
         // Human player turn
         if (turn == 1) {
-            cout << "\nYour move (pile number & how many to remove): ";
+            cout << "\nYour move (pile number & how many to remove): " << flush;
             int pidx, amt;
             cin >> pidx >> amt;
             pidx--; // adjust index for 0-based array
             if (pidx < 0 || pidx >= n || amt <= 0 || amt > piles[pidx]) {
-                cout << "Invalid move. Try again.\n";
+                cout << "Invalid move. Try again.\n" << flush;
                 continue;
             }
             piles[pidx] -= amt;
@@ -233,10 +234,10 @@ int main() {
         }
         // AI turn
         else {
-            cout << "\nAI is thinking...\n";
+            cout << "\nAI is thinking...\n" << flush;
             pair<int, int> mv = best_ai_move(piles);
             cout << "AI removes " << mv.second
-                 << " from pile " << mv.first + 1 << "\n";
+                 << " from pile " << mv.first + 1 << "\n" << flush;
             piles[mv.first] -= mv.second;
             turn = 1; // switch to human3
         }
